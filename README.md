@@ -16,6 +16,6 @@
 12. `git subtree push --prefix workshop11 heroku main` (Note: from one level above root folder)
 13. copy the url of heroku and paste to the browser
 14. `git remote add origin` <git repo url>
-15. To run with command line, only works with command prompt and not bash
+15. To run with command line (only works with command prompt and not bash):
 
     `mvn spring-boot:run -Dspring-boot.run.arguments=--port=8081`
