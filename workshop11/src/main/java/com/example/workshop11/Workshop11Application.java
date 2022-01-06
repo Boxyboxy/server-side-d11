@@ -34,42 +34,40 @@ public class Workshop11Application {
 		// System.out.printf("Application started on port %s\n", port);
 		// app.run(args);
 
+		// init logger
 		logger.info("Workshop 11");
-		// init the spring app
+		// init spring app
 		SpringApplication app = new SpringApplication(Workshop11Application.class);
-		// decode the hava app args using spring args helper
+		// decode and store arguments as appArgs using spring args helper
 		DefaultApplicationArguments appArgs = new DefaultApplicationArguments(args);
 		// return the args from the java args as list of strings
 		List optsVal = appArgs.getOptionValues("port");
 		logger.info("List taken in: " + optsVal);
-		// variable to hold up the port number to be pass on to the spring boot app
+		// variable to hold the port number to be passed on to the spring boot app
 		String portNumber = null;
-		// check if the opt arg is null or the first element is null as before
-		// retrieving it from the env variable
 
+		// if either opt args or the first element of it is null, retrieve the port
+		// number from the OS env variable
 		if (optsVal == null || optsVal.get(0) == null) {
 			// retrieve from the OS env variable
 			portNumber = System.getenv("PORT");
-
 			logger.info("0 - " + portNumber);
-			// if OS env variable is null or empty, default a default port
+			// if OS env variable is null or empty, set port number to a default value
 			if (portNumber == null)
 				portNumber = DEFAULT_PORT;
 		} else {
-			// if both above conditions is not met, get from the args in the app
+			// if both above conditions are not met, get port number from optsVal
 			portNumber = (String) optsVal.get(0);
 		}
-
 		logger.info("1 - " + optsVal);
 		logger.info("2 - " + portNumber);
-		// check if the port number is still null or empty
+		// if there exists a port number
 		if (portNumber != null) {
 			// override the spring boot app port number using the defaultproperties from
 			// spring boot framework
 			app.setDefaultProperties(Collections.singletonMap("server.port", portNumber));
 		}
 		app.run(args);
-
 		// can also configure in applications.properties with server.port = 8080
 	}
 
